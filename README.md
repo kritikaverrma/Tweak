@@ -9,6 +9,5 @@ It's a twitter clone make using MERN stack using TypeScript.
 6. User can see only his followers post and as see a suggestion User container.
 7. User can edit his own profile.
 8. User can see other Users like Posts in there profile.
-
-##Project Demo
+## Project Demo
 [![YouTube Video](https://img.youtube.com/vi/Wg9e9n-Cd4o/0.jpg)](https://www.youtube.com/watch?v=Wg9e9n-Cd4o)
