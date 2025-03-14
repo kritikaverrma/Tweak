@@ -1,24 +1,52 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import XSvg from "./X";
 import { MdHomeFilled } from "react-icons/md";
 import { IoNotifications } from "react-icons/io5";
-import { FaUser } from "react-icons/fa";
+import { FaUser, FaBookmark } from "react-icons/fa";
+import { TbMessageChatbotFilled } from "react-icons/tb";
 import { BiLogOut } from "react-icons/bi";
 import toast from "react-hot-toast";
 import axios from "axios";
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../context/userContext";
-
+import { useSocket } from "../hooks/useSocket";
 
 function Slidebar() {
-
-    // Extract user details
-    //const username = "kritikaverrma";
-    //const fullname = "xyz";
-    //const profileImg = "";
     const { authUser, setAuthUser, setUser, user } = useContext(AuthContext);
-    console.log("in the sidebar", user);
-    console.log(authUser);
+    const [notifications, setNotifications] = useState([]);
+    const location = useLocation();
+    const [unreadCount, setUnreadCount] = useState(0);
+
+    // Fetch unread notifications count when sidebar loads
+    useEffect(() => {
+        const fetchUnreadCount = async () => {
+            try {
+                const res = await axios.get("http://localhost:4000/api/notifications/unread-count", { withCredentials: true });
+                setUnreadCount(res.data.unreadCount);
+            } catch (error) {
+                console.error("Error fetching unread notifications count:", error);
+            }
+        };
+
+        fetchUnreadCount();
+    }, [user?._id]);
+
+    //reset notification count when user visits '/notifications'
+    useEffect(() => {
+        if (location.pathname === "/notifications") {
+            setUnreadCount(0);
+            axios.put("http://localhost:4000/api/notifications/mark-read", {}, { withCredentials: true })
+                .catch(err => console.error("Error marking notifications as read:", err));
+        }
+    }, [location.pathname]);
+
+    //essentially a useEffect that re-runs when userId changes
+    //passing a callback as an argument to useSocket, cb runs inside a useeffect
+    //useEffect intializes a socket connection for each userId
+    useSocket((newNotification) => {
+        setNotifications((prev) => [{ ...newNotification }, ...prev]);
+        setUnreadCount((prev) => prev + 1); // Increase badge count
+    });
     const navigate = useNavigate();
 
     const handleLogout = async () => {
@@ -67,6 +95,7 @@ function Slidebar() {
                             className="flex gap-3 items-center py-2 pl-2 pr-4 max-w-fit "
                         >
                             <IoNotifications className="w-6 h-6" />
+                            <span>{unreadCount}</span>
                             <span className="text-lg hidden md:block">Notifications</span>
                         </Link>
                     </li>
@@ -79,6 +108,27 @@ function Slidebar() {
                             <span className="text-lg hidden md:block">Profile</span>
                         </Link>
                     </li>
+
+                    <li className="flex justify-center md:justify-start hover:bg-stone-500 transition-all rounded-full duration-300 cursor-pointer">
+                        <Link
+                            to={`/bookmarks`}
+                            className="flex gap-3 items-center py-2 pl-2 pr-4 max-w-fit"
+                        >
+                            <FaBookmark className="w-6 h-6" />
+                            <span className="text-lg hidden md:block">Bookmarks</span>
+                        </Link>
+                    </li>
+                    <li className="flex justify-center md:justify-start hover:bg-stone-500 transition-all rounded-full duration-300 cursor-pointer">
+                        <Link
+                            to={`/chat`}
+                            className="flex gap-3 items-center py-2 pl-2 pr-4 max-w-fit"
+                        >
+                            <TbMessageChatbotFilled className="w-6 h-6" />
+                            <span className="text-lg hidden md:block">Messages</span>
+                        </Link>
+                    </li>
+
+
                 </ul>
 
                 {/* User Profile (Only if Authenticated) */}

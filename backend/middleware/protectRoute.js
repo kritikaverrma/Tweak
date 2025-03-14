@@ -2,7 +2,6 @@ const User = require("../models/userModel");
 const jwt = require("jsonwebtoken");
 
 const protectRoute = async (req, res, next) => {
-    console.log("In the middleware")
     try {
         const token = req.cookies.jwt;
         if (!token) {
@@ -15,12 +14,12 @@ const protectRoute = async (req, res, next) => {
         }
 
         const user = await User.findById(decoded.userId).select("-password");
-        console.log("user found in protectRoute")
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
 
         req.user = user;
+        console.log("user verified in protectroute middleware");
         next();
     } catch (error) {
         console.log("Error in protectedRoute middleware", error.message);

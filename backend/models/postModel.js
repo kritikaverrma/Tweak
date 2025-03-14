@@ -1,9 +1,8 @@
-const { default: mongoose } = require("mongoose");
-const moongoose = require("mongoose");
+const mongoose = require("mongoose");
 
-const postSchema = new moongoose.Schema({
+const postSchema = new mongoose.Schema({
     user: {
-        type: moongoose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: true
     },
@@ -13,9 +12,12 @@ const postSchema = new moongoose.Schema({
     img: {
         type: String,
     },
+    gif: {
+        type: String
+    },
     likes: [
         {
-            type: moongoose.Schema.Types.ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
             ref: "User",
         }
     ],
@@ -26,12 +28,18 @@ const postSchema = new moongoose.Schema({
                 required: true
             },
             user: {
-                type: moongoose.Schema.Types.ObjectId,
+                type: mongoose.Schema.Types.ObjectId,
                 ref: "User",
                 required: true
             }
         },
-    ]
+    ],
+    reposts: [
+        { type: mongoose.Schema.Types.ObjectId, ref: "User" }
+    ],
+    originalPost: {
+        type: mongoose.Schema.Types.ObjectId, ref: "Post", default: null
+    }
 }, { timestamps: true });
 
 

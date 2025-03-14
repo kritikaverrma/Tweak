@@ -9,6 +9,8 @@ import NotificationPage from "./pages/NotificationPage";
 import ProfilePage from "./pages/ProfilePage";
 import RightPanel from "./components/RightPanel";
 import Slidebar from "./components/Slidebar";
+import Bookmarks from "./pages/Bookmarks";
+import ChatList from "./pages/ChatList";
 import axios from "axios";
 import LoadingSpinner from "./components/LoadingSpinner";
 import { useContext } from "react";
@@ -55,12 +57,15 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <div className="flex max-w-full mx-auto">
+          {/* Common component, bc it's not wrapped with Routes */}
           {authUser && <Slidebar />}
           <Routes>
             <Route path="/" element={authUser ? <Home /> : <Navigate to={'/login'} />} />
             <Route path="/signup" element={!authUser ? <Signup /> : <Navigate to={'/'} />} />
             <Route path="/login" element={!authUser ? <Login /> : <Navigate to={'/'} />} />
+            <Route path="/bookmarks" element={authUser ? <Bookmarks /> : <Navigate to={'/login'} />} />
             <Route path="/notifications" element={authUser ? <NotificationPage /> : <Navigate to={'/login'} />} />
+            <Route path="/chat" element={authUser ? <ChatList /> : <Navigate to={'/login'} />} />
             <Route path="/profile/:username" element={authUser ? <ProfilePage /> : <Navigate to={'/login'} />} />
           </Routes>
           {authUser && <RightPanel />}

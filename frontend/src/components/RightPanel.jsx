@@ -29,7 +29,7 @@ const RightPanel = () => {
         fetchSuggestedUsers();
     }, [])
     return (
-        <div className='hidden sm:block my-4 mx-2'>
+        <div className='hidden md:block my-4 mx-2'>
             <div className='bg-[#16181C] p-4 rounded-md sticky top-2'>
                 <p className='font-bold text-white'>Who to follow</p>
                 <div className='flex flex-col gap-4'>

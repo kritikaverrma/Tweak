@@ -4,20 +4,33 @@ import toast from "react-hot-toast";
 import { BsEmojiSmileFill } from "react-icons/bs";
 import { CiImageOn } from "react-icons/ci";
 import { IoCloseSharp } from "react-icons/io5";
+import { MdOutlineGifBox } from "react-icons/md";
+import GifSearch from "../components/GifSearch"
+import { Gif } from "@giphy/react-components";
 
 function CreatePost({ setNewPost }) {
     const [text, setText] = useState("");
     const [img, setImg] = useState(null);
     const [isPending, setIsPending] = useState(false);
     const [error, setError] = useState(null);
+    const [showGifSearch, setShowGifSearch] = useState(false);
+    const [selectedGif, setSelectedGif] = useState(null);
 
     const imgRef = useRef(null);
 
     const handleSubmit = async (e) => {
+        let media = ""
         e.preventDefault();
-        if (!text.trim() && !img) {
+        if (!text.trim() && !img && !selectedGif) {
             toast.error("Post cannot be empty");
             return;
+        }
+
+        if (img) {
+            media = "img"
+        }
+        if (selectedGif) {
+            media = "gif"
         }
 
         setIsPending(true);
@@ -25,7 +38,12 @@ function CreatePost({ setNewPost }) {
 
         try {
             const res = await axios.post("http://localhost:4000/api/post/create",
-                { img, text },
+                {
+                    img,
+                    text,
+                    media,
+                    gif: selectedGif?.images.original.url
+                },
                 {
                     withCredentials: true // Only if backend uses cookies
                 }
@@ -34,6 +52,7 @@ function CreatePost({ setNewPost }) {
             toast.success("Post created successfully");
             setText("");
             setImg(null);
+            setSelectedGif(null);
             setNewPost(true)
         } catch (err) {
             setError(err.response?.data?.message || "Server Error");
@@ -53,13 +72,25 @@ function CreatePost({ setNewPost }) {
     };
 
     return (
-        <div className="flex p-4 items-start gap-2 border-b border-gray-300">
+        <div className="flex p-4 items-start gap-2 border-b border-gray-300 relative">
             {/* User Avatar Placeholder */}
+
+            {showGifSearch && <GifSearch
+                onSelect={(gif) => {
+                    setSelectedGif(gif);
+                    setShowGifSearch(false);
+                }}
+                setShowGifSearch={setShowGifSearch}
+            />}
+
+
             <div className="avatar">
                 <div className="w-12 h-12 rounded-full overflow-hidden border-2">
                     <img src={"/avatar-placeholder.png"} alt="User avatar" />
                 </div>
             </div>
+
+
 
             {/* Post Form */}
             <form className="flex flex-col gap-2 w-full" onSubmit={handleSubmit}>
@@ -84,6 +115,20 @@ function CreatePost({ setNewPost }) {
                     </div>
                 )}
 
+                {/* Gif Preview & Remove Button */}
+
+                {selectedGif && (
+                    <div className="relative w-72 mx-auto">
+                        <IoCloseSharp
+                            className="absolute top-0 right-0 text-white bg-gray-300 rounded-full w-5 h-5 cursor-pointer"
+                            onClick={() => {
+                                setSelectedGif(null);
+                            }}
+                        />
+                        <Gif gif={selectedGif} /*className="w-full mx-auto h-72 object-contain rounded"*/ />
+                    </div>
+                )}
+
                 {/* Post Actions */}
                 <div className="flex justify-between align-center border-t py-2 border-gray-300">
                     <div className="flex gap-1 items-center">
@@ -92,8 +137,18 @@ function CreatePost({ setNewPost }) {
                             onClick={() => imgRef.current?.click()}
                         />
                         <BsEmojiSmileFill className="fill-primary w-5 h-5 cursor-pointer" />
+                        <MdOutlineGifBox
+                            className="fill-primary w-6 h-6 cursor-pointer"
+                            onClick={() => setShowGifSearch(!showGifSearch)}
+                        />
                     </div>
-                    <input type="file" accept="image/*" ref={imgRef} onChange={handleImgChange} />
+                    <input
+                        type="file"
+                        accept="image/*"
+                        ref={imgRef}
+                        style={{ display: "none" }}
+                        onChange={handleImgChange} />
+
 
                     <button className="btn btn-secondary rounded-full btn-sm text-white px-4 bg-blue-800" disabled={isPending}>
                         {isPending ? "Posting..." : "Post"}

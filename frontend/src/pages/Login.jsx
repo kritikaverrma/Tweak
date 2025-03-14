@@ -51,7 +51,7 @@ const Login = () => {
             <div className='max-w-screen-xl mx-auto flex justify-center items-center h-screen'>
 
                 <div className=' flex-1 hidden md:flex items-center justify-center'>
-                    <XSvg className='sm:w-2/3 fill-black' />
+                    <XSvg className='sm:w-2/3 fill-black dark:fill-white' />
                 </div>
 
                 <div className=' flex-1 flex flex-col justify-center items-center'>
@@ -85,14 +85,15 @@ const Login = () => {
 
                         <button
                             type="submit"
-                            className="w-full bg-blue-500 text-white p-3 rounded-md hover:bg-blue-600 transition duration-300">
+                            className="w-full bg-blue-500 text-white font-semibold p-3 rounded-lg hover:bg-blue-600 active:bg-blue-700 transition-all duration-300">
                             Login
                         </button>
                     </form>
                     <div className='flex flex-col gap-2 mt-4'>
                         <p className='text-black text-lg'>{"Don't"} have an account?</p>
                         <Link to='/signup'>
-                            <button className='p-2 btn rounded-md text-black w-full hover:underline border ring-4 ring-blue-300 ring-opacity-50 animate-pulse'>Sign up</button>
+                            <button className='w-full border border-gray-400 text-gray-600 py-3 rounded-lg 
+                   hover:bg-gray-100 transition-all'>Sign up</button>
                         </Link>
                     </div>
                 </div>

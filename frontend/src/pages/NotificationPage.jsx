@@ -28,6 +28,16 @@ const NotificationPage = () => {
         }
     }
 
+    const handleDeleteNotifications = async () => {
+        try {
+            await axios.delete("http://localhost:4000/api/notifications", { withCredentials: true });
+            toast.success("Notifications cleared!");
+            setNotifications([]); // Update UI state
+        } catch (error) {
+            toast.error("Failed to delete notifications");
+        }
+    }
+
     useEffect(() => {
         fetchNotifications();
     }, [])
@@ -35,36 +45,33 @@ const NotificationPage = () => {
         <>
             <div className='flex-[4_4_0] border-l border-r border-gray-700 min-h-screen'>
 
-                <div className='flex justify-between items-center p-4 border-b border-gray-700'>
-                    <p className='font-bold'>Notifications</p>
-                    <div className='dropdown '>
-                        <div tabIndex={0} role='button' className='m-1'>
-                            <IoSettingsOutline className='w-4' />
+                {/** Header-div-flex with p and div as flex-child*/}
+                <div className="flex justify-between items-center p-4 border-b border-gray-300">
+                    <p className="font-bold">Notifications</p>
+                    <div className="dropdown dropdown-end">
+                        <div tabIndex={0} role="button" className="m-1 cursor-pointer">
+                            <IoSettingsOutline className="w-6 h-6" />
                         </div>
-                        <ul
-                            tabIndex={0}
-                            className='dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52'
-                        >
+                        <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
                             <li>
-                                <a onClick={(e) => {
-                                    e.preventDefault();
-                                }}>Delete all notifications</a>
+                                <button onClick={handleDeleteNotifications}>Delete all notifications</button>
                             </li>
                         </ul>
                     </div>
                 </div>
 
+                {/** while notifications are being fetched from the database*/}
                 {isLoading && (
                     <div className='flex justify-center h-full items-center'>
                         <LoadingSpinner size='lg' />
                     </div>
                 )}
 
-
+                {/**Display all the notifications or no notifications if none found */}
                 {notifications?.length === 0 && <div className='text-center p-4 font-bold'>No notifications 🤔</div>}
 
                 {notifications?.map((notification) => (
-                    <div className='border-b border-gray-700' key={notification._id}>
+                    <div className='border-b border-gray-300' key={notification._id}>
                         <div className='flex gap-2 p-4'>
                             {notification.type === "follow" && <FaUser className='w-7 h-7 text-primary' />}
                             {notification.type === "like" && <FaHeart className='w-7 h-7 text-red-500' />}

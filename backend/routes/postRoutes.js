@@ -1,6 +1,6 @@
 const express = require("express");
 const protectRoute = require("../middleware/protectRoute");
-const { createPost, deletePost, commentOnPost, likeUnLikeOnPost, getAllPosts, getAllLikePosts, getAllFollowingPosts, getAnyUserPosts } = require("../controllers/post");
+const { getBookmarks, repostPost, bookmarkPost, createPost, deletePost, commentOnPost, likeUnLikeOnPost, getAllPosts, getAllLikePosts, getAllFollowingPosts, getAnyUserPosts } = require("../controllers/post");
 const postRouter = express.Router();
 
 
@@ -10,10 +10,14 @@ const postRouter = express.Router();
 postRouter.get('/all', protectRoute, getAllPosts)
 postRouter.get('/following', protectRoute, getAllFollowingPosts)
 postRouter.get('/user/:username', protectRoute, getAnyUserPosts);
+postRouter.get("/bookmark/:userId", protectRoute, getBookmarks);
 postRouter.get('/likes/:id', protectRoute, getAllLikePosts);
 postRouter.post("/create", protectRoute, createPost);
 postRouter.put("/like/:id", protectRoute, likeUnLikeOnPost);
 postRouter.put("/comment/:id", protectRoute, commentOnPost)
 postRouter.delete("/:id", protectRoute, deletePost);
+postRouter.post("/bookmark/:postId", protectRoute, bookmarkPost);
+
+postRouter.post("/repost/:postId", protectRoute, repostPost);
 
 module.exports = postRouter

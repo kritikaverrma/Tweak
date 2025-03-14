@@ -155,9 +155,30 @@ const updateUserProfile = async (req, res) => {
     }
 }
 
+const searchUsers = async (req, res) => {
+    const { query } = req.query;
+    console.log("in searchUsers");
+    console.log(query);
+    if (!query) return res.json([]);
+
+    try {
+        const users = await User.find({
+            $or: [
+                { username: { $regex: query, $options: "i" } }, // Case-insensitive match
+                { fullname: { $regex: query, $options: "i" } }
+            ]
+        }).select("username fullname avatar");
+
+        res.json(users);
+    } catch (error) {
+        res.status(500).json({ error: "Server error" });
+    }
+}
+
 module.exports = {
     getUserProfile,
     followUnfollowUser,
     getSuggestedUsers,
-    updateUserProfile
+    updateUserProfile,
+    searchUsers,
 }

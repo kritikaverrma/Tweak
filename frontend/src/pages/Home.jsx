@@ -47,6 +47,12 @@ export default Home;
 
 
 //Has 3 sections
+
 //1: div for 'for you' 'following'
-//2: CreatePost section
+
+//2: CreatePost section---if a new post is created, setNewPost will set 
+//newPost to true and Home will be re-rendered w new values
+
 //3: Posts depending on the feedtype
+//different backend APIs for all posts and following 
+//

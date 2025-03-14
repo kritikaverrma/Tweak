@@ -39,7 +39,7 @@ function Posts({ feedType, username, userId, newPost, setNewPost }) {
                 }
             );
             setPosts(res.data);
-            console.log(res.data);
+            console.log("res(posts) at the client", res.data);
         } catch (error) {
             const errorMsg = axios.isAxiosError(error)
                 ? error.response?.data?.message
@@ -74,7 +74,7 @@ function Posts({ feedType, username, userId, newPost, setNewPost }) {
             {!isLoading && posts.length > 0 && (
                 <div>
                     {posts.map((post) => (
-                        <Post key={post._id} post={post} />
+                        <Post key={post._id} post={post} setPosts={setPosts} setNewPost={setNewPost} />
                     ))}
                 </div>
             )}

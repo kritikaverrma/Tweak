@@ -12,6 +12,7 @@ const signup = async (req, res) => {
             });
         }*/}
         console.log('hi from server signup');
+
         //USER EXISTS:
         const existUser = await User.findOne({ username: req.body.username })
         if (existUser) {
@@ -44,10 +45,10 @@ const signup = async (req, res) => {
             password: hashedPassword
         })
 
+        await newUser.save();
+
         if (newUser) {
             generateTokenAndSetCookie(newUser._id, res)
-            await newUser.save();
-
             return res.status(201).json({
                 _id: newUser._id,
                 fullname: newUser.fullname,
@@ -56,7 +57,8 @@ const signup = async (req, res) => {
                 followers: newUser.followers,
                 following: newUser.following,
                 profileImg: newUser.profileImg,
-                coverImg: newUser.coverImg
+                coverImg: newUser.coverImg,
+                bookmarks: newUser.bookmarks,
 
             });
         } else {
@@ -95,7 +97,8 @@ const login = async (req, res) => {
             followers: user.followers,
             following: user.following,
             profileImg: user.profileImg,
-            coverImg: user.coverImg
+            coverImg: user.coverImg,
+            bookmarks: user.bookmarks,
 
         });
     } catch (error) {
