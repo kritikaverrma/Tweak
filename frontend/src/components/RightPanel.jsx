@@ -10,11 +10,12 @@ const RightPanel = () => {
     const { followAndUnfollow, isPending } = useFollow();
     const [suggestedUsers, setSuggestedUsers] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [isFollowed, setIsFollowed] = useState(false)
+    const [isFollowed, setIsFollowed] = useState(false);
+    const apiUrl = process.env.REACT_APP_API_URL;
 
     const fetchSuggestedUsers = async () => {
         try {
-            const res = await axios.get("http://localhost:4000/api/users/suggested",
+            const res = await axios.get(`${apiUrl}/api/users/suggested`,
                 { withCredentials: true });
             console.log(res.data);
             setSuggestedUsers(res.data);

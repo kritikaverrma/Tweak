@@ -9,12 +9,13 @@ const ChatList = () => {
     const [selectedChat, setSelectedChat] = useState(null);
     const [selectedUser, setSelectedUser] = useState(null);
     const { user } = useContext(AuthContext);
+    const apiUrl = process.env.REACT_APP_API_URL;
 
     //fetch chats when the component renders
     useEffect(() => {
         const fetchChats = async () => {
             try {
-                const { data } = await axios.get("http://localhost:4000/api/chat",
+                const { data } = await axios.get(`${apiUrl}/api/chat`,
                     { withCredentials: true }); // Fetch all user's chats
                 console.log("data from fetch chats", data);
                 setChats(data);
@@ -48,7 +49,7 @@ const ChatList = () => {
         } else {
             // Create a new chat if it doesn't exist
             try {
-                const { data } = await axios.post("http://localhost:4000/api/chat",
+                const { data } = await axios.post(`${apiUrl}/api/chat`,
                     { userId: selectedUser._id },
                     { withCredentials: true }
                 );

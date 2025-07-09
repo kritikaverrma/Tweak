@@ -4,7 +4,8 @@ import Posts from "../components/Posts";
 
 function Home() {
     const [feedType, setFeedType] = useState("forYou");
-    const [newPost, setNewPost] = useState(false)
+    const [newPost, setNewPost] = useState(false);
+    const apiUrl = process.env.REACT_APP_API_URL;
 
     return (
         <div className="flex-grow mr-auto border-r border-gray-300 min-h-screen">

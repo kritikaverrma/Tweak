@@ -24,6 +24,7 @@ function ProfilePage() {
     const [currentuser, setCurrentUser] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [current, setCurrent] = useState({})
+    const apiUrl = process.env.REACT_APP_API_URL;
 
     const coverImgRef = useRef(null);
     const profileImgRef = useRef(null);
@@ -36,7 +37,7 @@ function ProfilePage() {
     useEffect(() => {
         const fetchUserProfile = async () => {
             try {
-                const res = await axios.get(`http://localhost:4000/api/users/profile/${username}`,
+                const res = await axios.get(`${apiUrl}/api/users/profile/${username}`,
                     { withCredentials: true });
                 setCurrent(res.data);
             } catch (error) {

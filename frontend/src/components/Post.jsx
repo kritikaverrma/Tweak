@@ -29,14 +29,14 @@ function Post({ post, setPosts, setNewPost }) {
     const isReposted = post?.reposts?.includes(user?._id);
     const isMyPost = user?._id === post.user?._id ?? false;
     const formattedDate = formatPostDate(post.createdAt);
-
+    const apiUrl = process.env.REACT_APP_API_URL;
 
 
     const handleLikePost = async () => {
         if (isLiking) return;
         setIsLiking(true);
         try {
-            const res = await axios.put(`http://localhost:4000/api/post/like/${post._id}`, {}, { withCredentials: true });
+            const res = await axios.put(`${apiUrl}/api/post/like/${post._id}`, {}, { withCredentials: true });
             setLikes(res.data); // Assuming API returns updated likes array
             console.log("updated likes", res.data);
             setPosts((prevPosts) =>
@@ -56,7 +56,7 @@ function Post({ post, setPosts, setNewPost }) {
         setIsDeleting(true);
         try {
             const postId = post._id;
-            await axios.delete(`http://localhost:4000/api/post/${post._id}`, {
+            await axios.delete(`${apiUrl}/api/post/${post._id}`, {
                 withCredentials: true,
             });
             toast.success("Post deleted successfully");
@@ -69,7 +69,7 @@ function Post({ post, setPosts, setNewPost }) {
     const handleRepost = async (e) => {
         setIsReposting(true);
         try {
-            const res = await axios.post(`http://localhost:4000/api/post/repost/${post._id}`, {}, { withCredentials: true });
+            const res = await axios.post(`${apiUrl}/api/post/repost/${post._id}`, {}, { withCredentials: true });
             const Repost = res.data.newRepost;
             console.log("newRepost at client", Repost);
             toast.success("reposted successfully");
@@ -101,7 +101,7 @@ function Post({ post, setPosts, setNewPost }) {
         if (isCommenting || !comment.trim()) return;
         setIsCommenting(true);
         try {
-            const res = await axios.put(`http://localhost:4000/api/post/comment/${post._id}`,
+            const res = await axios.put(`${apiUrl}/api/post/comment/${post._id}`,
                 { text: comment },
                 { withCredentials: true });
             setComments(res.data); // Assuming API returns updated comments array
@@ -122,7 +122,7 @@ function Post({ post, setPosts, setNewPost }) {
     const handleBookmarkPost = async (e) => {
         setIsBookmarking(true);
         try {
-            const res = await axios.post(`http://localhost:4000/api/post/bookmark/${post._id}`, {}, {
+            const res = await axios.post(`${apiUrl}/api/post/bookmark/${post._id}`, {}, {
                 withCredentials: true,
             });
             if (!isBookmarked) { toast.success("Post bookmarked successfully"); }

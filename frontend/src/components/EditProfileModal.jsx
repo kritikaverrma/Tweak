@@ -15,6 +15,7 @@ const EditProfileModal = ({ authUser }) => {
         currentPassword: "",
     });
     const [isUpdating, setIsUpdating] = useState(false);
+    const apiUrl = process.env.REACT_APP_API_URL;
 
     useEffect(() => {
         if (authUser) {
@@ -43,7 +44,7 @@ const EditProfileModal = ({ authUser }) => {
         setIsUpdating(true);
 
         try {
-            await axios.put("http://localhost:4000/api/users/update", {
+            await axios.put(`${apiUrl}/api/users/update`, {
                 fullname: formData.fullname,
                 username: formData.username,
                 email: formData.email,

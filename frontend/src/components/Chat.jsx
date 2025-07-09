@@ -11,6 +11,7 @@ const Chat = ({ selectedChat }) => {
     const { user } = useContext(AuthContext);
     const messagesEndRef = useRef(null);
     console.log(messages);
+    const apiUrl = process.env.REACT_APP_API_URL;
     //const messagesEndRef = useRef(null);
 
     //fetch messages from /api/messages/:chatId whenever selected chat changes
@@ -19,7 +20,7 @@ const Chat = ({ selectedChat }) => {
         console.log("useEffect in chat");
         const fetchChat = async () => {
             try {
-                const res = await axios.get(`http://localhost:4000/api/messages/${selectedChat}`,
+                const res = await axios.get(`${apiUrl}/api/messages/${selectedChat}`,
                     { withCredentials: true }); // Fetch all user's chats
                 setMessages(res.data);
                 console.log("fetched messages", res.data);
@@ -63,7 +64,7 @@ const Chat = ({ selectedChat }) => {
         try {
             console.log("selectedchat id", selectedChat);
             console.log("newMessage", newMessage);
-            const res = await axios.post(`http://localhost:4000/api/messages/${selectedChat}`, { newMessage }, { withCredentials: true });
+            const res = await axios.post(`${apiUrl}/api/messages/${selectedChat}`, { newMessage }, { withCredentials: true });
             console.log("res from the backend", res.data);
             setMessages((prevMessages) => [...prevMessages, res.data]);
             console.log("sent a message for the server to store & ")

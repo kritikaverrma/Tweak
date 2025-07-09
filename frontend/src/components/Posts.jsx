@@ -10,6 +10,7 @@ import PostSkeleton from "./PostSkeleton";
 function Posts({ feedType, username, userId, newPost, setNewPost }) {
     const [isLoading, setIsLoading] = useState(true);
     const [posts, setPosts] = useState([]);
+    const apiUrl = process.env.REACT_APP_API_URL;
 
     const getPostEndPoint = () => {
         switch (feedType) {
@@ -33,7 +34,7 @@ function Posts({ feedType, username, userId, newPost, setNewPost }) {
     const fetchPosts = async () => {
         setIsLoading(true);
         try {
-            const res = await axios.get(`http://localhost:4000${POST_ENDPOINT}`,
+            const res = await axios.get(`${apiUrl}${POST_ENDPOINT}`,
                 {
                     withCredentials: true // Only if backend uses cookies
                 }

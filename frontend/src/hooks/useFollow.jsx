@@ -6,11 +6,12 @@ import toast from "react-hot-toast";
 //custom Hook
 function useFollow() {
     const [isPending, setIsPending] = useState(false);
+    const apiUrl = process.env.REACT_APP_API_URL;
 
     const followAndUnfollow = async (userId) => {
         setIsPending(true);
         try {
-            const res = await axios.post(`http://localhost:4000/api/users/follow/${userId}`, {}, { withCredentials: true });
+            const res = await axios.post(`${apiUrl}/api/users/follow/${userId}`, {}, { withCredentials: true });
             toast.success(res.data.message || "Follow status updated");
             // Optionally, update local state or trigger a manual re-fetch if needed
         } catch (error) {

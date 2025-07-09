@@ -15,9 +15,8 @@ function CreatePost({ setNewPost }) {
     const [error, setError] = useState(null);
     const [showGifSearch, setShowGifSearch] = useState(false);
     const [selectedGif, setSelectedGif] = useState(null);
-
     const imgRef = useRef(null);
-
+    const apiUrl = process.env.REACT_APP_API_URL;
     const handleSubmit = async (e) => {
         let media = ""
         e.preventDefault();
@@ -37,7 +36,7 @@ function CreatePost({ setNewPost }) {
         setError(null);
 
         try {
-            const res = await axios.post("http://localhost:4000/api/post/create",
+            const res = await axios.post(`${apiUrl}/api/post/create`,
                 {
                     img,
                     text,

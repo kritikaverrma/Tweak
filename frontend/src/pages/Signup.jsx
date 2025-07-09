@@ -16,11 +16,12 @@ const Signup = () => {
     })
     const { setAuthUser } = useContext(AuthContext);
     const navigate = useNavigate();
+    const apiUrl = process.env.REACT_APP_API_URL;
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post("http://localhost:4000/api/auth/signup",
+            const res = await axios.post(`${apiUrl}/api/auth/signup`,
                 formData,
                 { withCredentials: true }
             );

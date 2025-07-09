@@ -11,15 +11,14 @@ const Bookmarks = () => {
     const { user, authUser } = useContext(AuthContext)
     const [bookmarks, setBookmarks] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-
-
+    const apiUrl = process.env.REACT_APP_API_URL;
 
     useEffect(() => {
         if (!user?._id) return;
         const fetchBookmarks = async () => {
             try {
                 setIsLoading(true);
-                const res = await axios.get(`http://localhost:4000/api/post/bookmark/${user._id}`, {
+                const res = await axios.get(`${apiUrl}/api/post/bookmark/${user._id}`, {
                     withCredentials: true,
                 });
                 console.log("bookmarks after api call", res.data);

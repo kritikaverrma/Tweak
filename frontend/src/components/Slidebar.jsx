@@ -16,12 +16,13 @@ function Slidebar() {
     const [notifications, setNotifications] = useState([]);
     const location = useLocation();
     const [unreadCount, setUnreadCount] = useState(0);
+    const apiUrl = process.env.REACT_APP_API_URL;
 
     // Fetch unread notifications count when sidebar loads
     useEffect(() => {
         const fetchUnreadCount = async () => {
             try {
-                const res = await axios.get("http://localhost:4000/api/notifications/unread-count", { withCredentials: true });
+                const res = await axios.get(`${apiUrl}/api/notifications/unread-count`, { withCredentials: true });
                 setUnreadCount(res.data.unreadCount);
             } catch (error) {
                 console.error("Error fetching unread notifications count:", error);
@@ -35,7 +36,7 @@ function Slidebar() {
     useEffect(() => {
         if (location.pathname === "/notifications") {
             setUnreadCount(0);
-            axios.put("http://localhost:4000/api/notifications/mark-read", {}, { withCredentials: true })
+            axios.put(`${apiUrl}/api/notifications/mark-read`, {}, { withCredentials: true })
                 .catch(err => console.error("Error marking notifications as read:", err));
         }
     }, [location.pathname]);

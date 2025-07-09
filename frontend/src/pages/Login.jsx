@@ -14,6 +14,7 @@ const Login = () => {
     })
     const { setAuthUser, setUser, user } = useContext(AuthContext);
     const navigate = useNavigate();
+    const apiUrl = process.env.REACT_APP_API_URL;
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -27,7 +28,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post("http://localhost:4000/api/auth/login",
+            const res = await axios.post(`${apiUrl}/api/auth/login`,
                 formData,
                 {
                     withCredentials: true // Only if backend uses cookies

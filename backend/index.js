@@ -28,7 +28,7 @@ v2.config({
 });
 const app = express();
 const PORT = process.env.PORT || 3000;
-
+console.log("client url", process.env.CLIENT_URL);
 //MIDDLEWARES
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

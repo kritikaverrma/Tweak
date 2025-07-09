@@ -81,6 +81,7 @@ const login = async (req, res) => {
             });
             return;
         }*/}
+        console.log("req.body at login controller", req.body);
         const user = await User.findOne({ username: req.body.username })
         const isPasswordCorrect = await bcrypt.compare(req.body.password, user?.password || "");
         if (!user || !isPasswordCorrect) {

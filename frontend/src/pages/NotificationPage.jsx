@@ -17,7 +17,7 @@ const NotificationPage = () => {
 
     const fetchNotifications = async () => {
         try {
-            const res = await axios.get("http://localhost:4000/api/notifications", {
+            const res = await axios.get("${apiUrl}/api/notifications", {
                 withCredentials: true,
             });
             setNotifications(res.data);
@@ -30,7 +30,7 @@ const NotificationPage = () => {
 
     const handleDeleteNotifications = async () => {
         try {
-            await axios.delete("http://localhost:4000/api/notifications", { withCredentials: true });
+            await axios.delete(`${apiUrl}/api/notifications`, { withCredentials: true });
             toast.success("Notifications cleared!");
             setNotifications([]); // Update UI state
         } catch (error) {

@@ -4,10 +4,11 @@ import axios from "axios";
 const UserSearch = ({ onSelectUser }) => {
     const [searchTerm, setSearchTerm] = useState("");
     const [users, setUsers] = useState([]);
+    const apiUrl = process.env.REACT_APP_API_URL;
     {/*useEffect(() => {
         const fetchSuggested = async () => {
             try {
-                const { data } = await axios.get(`http://localhost:4000/api/users/suggested`);
+                const { data } = await axios.get(`${apiUrl}/api/users/suggested`);
                 setUsers(data);
             } catch (error) {
                 console.error("Error searching users:", error);
@@ -22,7 +23,7 @@ const UserSearch = ({ onSelectUser }) => {
 
         if (query.length > 1) {
             try {
-                const { data } = await axios.get(`http://localhost:4000/api/users/search?query=${searchTerm}`
+                const { data } = await axios.get(`${apiUrl}/api/users/search?query=${searchTerm}`
                     , { withCredentials: true });
                 setUsers(data);
                 //returns user data with _id, avatar, fullname, username
