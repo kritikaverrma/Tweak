@@ -1,4 +1,4 @@
-# Tweak 🐦  
+# Tweak 
 A **modern Twitter clone** built with the **MERN stack** (MongoDB, Express.js, React, Node.js).  
 It features **real-time updates via Socket.io**, allowing users to post tweets, like, retweet, comment, and follow other users — just like Twitter.  
 
