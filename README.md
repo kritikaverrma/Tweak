@@ -14,15 +14,15 @@ It features **real-time updates via Socket.io**, allowing users to post tweets, 
 
 ## Features
 
-1️⃣ **User Authentication** — Sign up, login, logout, password reset (JWT & Google OAuth)  
-2️⃣ **User Profiles** — Bio, profile photo, cover banner  
-3️⃣ **Tweeting** — Post text, images, videos, GIFs (Cloudinary)  
-4️⃣ **Likes & Retweets** — Interact just like Twitter  
-5️⃣ **Bookmarks** — Save tweets for later  
-6️⃣ **Real-time Notifications** — For likes, comments, follows (Socket.io)  
-7️⃣ **Direct Messages** — 1-1 real-time chat (Socket.io)  
-8️⃣ **Explore Page** — Discover trending tweets & hashtags  
-9️⃣ **Dark Mode** — User toggle for better experience
+1️. **User Authentication** — Sign up, login, logout, password reset (JWT & Google OAuth)  
+2️. **User Profiles** — Bio, profile photo, cover banner  
+3️. **Tweeting** — Post text, images, videos, GIFs (Cloudinary)  
+4️. **Likes & Retweets** — Interact just like Twitter  
+5️. **Bookmarks** — Save tweets for later  
+6️. **Real-time Notifications** — For likes, comments, follows (Socket.io)  
+7️. **Direct Messages** — 1-1 real-time chat (Socket.io)  
+8️. **Explore Page** — Discover trending tweets & hashtags  
+9️. **Dark Mode** — User toggle for better experience
 
 ## Tech Stack
 
