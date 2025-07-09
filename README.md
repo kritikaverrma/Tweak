@@ -2,7 +2,7 @@
 A **modern Twitter clone** built with the **MERN stack** (MongoDB, Express.js, React, Node.js).  
 It features **real-time updates via Socket.io**, allowing users to post tweets, like, retweet, comment, and follow other users — just like Twitter.  
 
-✨ **Highlights:**  
+## Highlights:
 - Real-time **Direct Messaging (DMs)**  
 - **Notifications** for likes, comments, and follows  
 - **Media uploads** with Cloudinary  
@@ -12,9 +12,7 @@ It features **real-time updates via Socket.io**, allowing users to post tweets, 
 - Secure **JWT authentication** (with Google OAuth)  
 - **Dark mode** toggle for better UX
 
----
-
-## 🚀 **Features**
+## Features
 
 1️⃣ **User Authentication** — Sign up, login, logout, password reset (JWT & Google OAuth)  
 2️⃣ **User Profiles** — Bio, profile photo, cover banner  
@@ -26,9 +24,7 @@ It features **real-time updates via Socket.io**, allowing users to post tweets, 
 8️⃣ **Explore Page** — Discover trending tweets & hashtags  
 9️⃣ **Dark Mode** — User toggle for better experience
 
----
-
-## ⚙️ **Tech Stack**
+## Tech Stack
 
 **Frontend:** React, Tailwind CSS, Context API  
 **Backend:** Node.js, Express.js, Socket.io  
@@ -36,9 +32,28 @@ It features **real-time updates via Socket.io**, allowing users to post tweets, 
 **Auth:** JWT, Google OAuth  
 **Media Storage:** Cloudinary  
 **Real-time:** Socket.io  
-**Deployment:** Render (Backend), Vercel/Netlify (Frontend)
+**Deployment:** Render (Backend & Frontend)
 
 ---
 
-## 📂 **Project Structure**
+## Project Structure
+
+tweak/
+├── frontend/ # React app
+├── backend/ # Express server + Socket.io
+├── .env.example (backend)
+├── .env.example (frontend)
+├── prisma/ or models/ (if using Mongoose)
+├── README.md
+
+## Live Demo
+
+**Frontend:** [https://tweak.vercel.app](https://tweak.vercel.app)  
+**Backend API:** [https://tweak-api.onrender.com](https://tweak-api.onrender.com)  
+
+---
+
+## Demo Login
+
+Use these **test credentials** to try it out:
 
