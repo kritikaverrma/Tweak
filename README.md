@@ -56,4 +56,6 @@ tweak/
 ## Demo Login
 
 Use these **test credentials** to try it out:
+1. username: kritikaverrma
+2. Password: 12345678
 
