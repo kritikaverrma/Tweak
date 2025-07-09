@@ -48,8 +48,8 @@ tweak/
 
 ## Live Demo
 
-**Frontend:** [https://tweak.vercel.app](https://tweak.vercel.app)  
-**Backend API:** [https://tweak-api.onrender.com](https://tweak-api.onrender.com)  
+**Frontend:** [https://tweak-client.onrender.com](https://tweak-client.onrender.com)  
+**Backend API:** [https://tweak-x6f1.onrender.com](https://tweak-x6f1.onrender.com)  
 
 ---
 
