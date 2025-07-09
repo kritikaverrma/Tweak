@@ -81,6 +81,10 @@ const login = async (req, res) => {
             });
             return;
         }*/}
+        const { username, password } = req.body;
+        if (!username || !password) {
+            return res.status(400).json({ message: "Missing credentials" });
+        }
         console.log("req.body at login controller", req.body);
         const user = await User.findOne({ username: req.body.username })
         const isPasswordCorrect = await bcrypt.compare(req.body.password, user?.password || "");
